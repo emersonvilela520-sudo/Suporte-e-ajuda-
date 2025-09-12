@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Suporte e Ajuda</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f4f4f4;
+      padding: 20px;
+    }
+    h2 {
+      color: #333;
+    }
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 20px;
+    }
+    a {
+      text-decoration: none;
+      background: #007bff;
+      color: white;
+      padding: 15px;
+      border-radius: 10px;
+      font-size: 18px;
+      transition: 0.3s;
+    }
+    a:hover {
+      background: #0056b3;
+    }
+    .emergencia {
+      background: red;
+    }
+  </style>
+</head>
+<body>
+  <h2>📲 Suporte e Ajuda</h2>
+  <div class="menu">
+    <a href="#">🚧 Elevador parado</a>
+    <a href="#">⏳ Muito tempo de espera</a>
+    <a href="#">ℹ️ Informações</a>
+    <a href="https://wa.me/5511958276139" target="_blank">💬 WhatsApp</a>
+    <a class="emergencia" href="tel:190">🚔 Emergência Policial (190)</a>
+    <a class="emergencia" href="tel:193">🚒 Emergência Bombeiro (193)</a>
+    <a href="https://www.seusite.com" target="_blank">🌐 Site</a>
+    <a href="#">📢 Reclamações</a>
+  </div>
+</body>
+</html>
+Use Control + Shift + mpara alternar o tabfoco móvel da tecla. Como alternativa, use escpara tabmover para o próximo elemento interativo na página.
+Novo arquivo em / · emersonvilela520-sudo/Estacionamento-vertical

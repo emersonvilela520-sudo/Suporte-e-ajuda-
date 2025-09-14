@@ -45,7 +45,7 @@
     <a href="https://wa.me/5511958276139" target="_blank">💬 WhatsApp</a>
     <a class="emergencia" href="tel:190">🚔 Emergência Policial (190)</a>
     <a class="emergencia" href="tel:193">🚒 Emergência Bombeiro (193)</a>
-    <a href="https://www.seusite.com" target="_blank">🌐 Site</a>
+    <a href="site.html" target="_blank" rel="noopener noreferrer">🌐 Site</a>
     <a href="#">📢 Reclamações</a>
   </div>
 </body>

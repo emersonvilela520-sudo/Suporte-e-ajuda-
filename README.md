@@ -1,0 +1,169 @@
+[index.html](https://github.com/user-attachments/files/22317827/index.html)
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estacionamento Vertical - Suporte</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #f4f4f4, #e0e0e0);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .menu a {
+      text-decoration: none;
+      background: #007bff;
+      color: white;
+      padding: 18px;
+      border-radius: 12px;
+      font-size: 18px;
+      font-weight: 500;
+      text-align: center;
+      transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      display: inline-block;
+    }
+
+    .menu a:hover {
+      background: #0056b3;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 10px rgba(0,0,0,0.15);
+    }
+
+    .emergencia {
+      background: #e74c3c;
+    }
+
+    .emergencia:hover {
+      background: #c0392b;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(4px);
+      background: rgba(0,0,0,0.4);
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .modal-content h2 {
+      margin-bottom: 20px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #555;
+    }
+
+    .close-btn:hover {
+      color: #000;
+    }
+
+    @media (max-width: 500px) {
+      .menu a {
+        font-size: 16px;
+        padding: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>📲 Suporte e Ajuda - Estacionamento Vertical</h1>
+
+  <div class="menu">
+    <a href="#" onclick="openModal('Elevador parado')">🚧 Elevador parado</a>
+    <a href="#" onclick="openModal('Muito tempo de espera')">⏳ Muito tempo de espera</a>
+    <a href="#" onclick="openModal('Informações gerais')">ℹ️ Informações</a>
+    <a href="https://wa.me/5511958276139" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
+    <a class="emergencia" href="tel:190">🚔 Emergência Policial (190)</a>
+    <a class="emergencia" href="tel:193">🚒 Emergência Bombeiros (193)</a>
+    <a href="https://www.seusite.com" target="_blank" rel="noopener noreferrer">🌐 Site</a>
+    <a href="#" onclick="openModal('Reclamações')">📢 Reclamações</a>
+  </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h2 id="modal-title">Título</h2>
+      <p id="modal-text">Conteúdo da informação.</p>
+    </div>
+  </div>
+
+  <script>
+    // Funções para modal
+    function openModal(title) {
+      document.getElementById('modal-title').innerText = title;
+      document.getElementById('modal-text').innerText = 'Aqui você pode adicionar detalhes sobre "' + title + '".';
+      document.getElementById('modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+
+    // Fecha modal ao clicar fora
+    window.onclick = function(event) {
+      const modal = document.getElementById('modal');
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+
+</body>
+</html>

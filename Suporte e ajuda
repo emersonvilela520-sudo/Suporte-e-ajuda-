@@ -2,53 +2,177 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Suporte e Ajuda</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estacionamento Vertical - Suporte</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
   <style>
+    /* Reset básico */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      background: #f4f4f4;
-      padding: 20px;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, #f4f4f4, #e0e0e0);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
     }
-    h2 {
+
+    h1 {
       color: #333;
+      margin-bottom: 30px;
+      text-align: center;
     }
+
     .menu {
       display: flex;
       flex-direction: column;
-      gap: 15px;
-      margin-top: 20px;
+      gap: 20px;
+      width: 100%;
+      max-width: 400px;
     }
-    a {
+
+    .menu a {
       text-decoration: none;
       background: #007bff;
       color: white;
-      padding: 15px;
-      border-radius: 10px;
+      padding: 18px;
+      border-radius: 12px;
       font-size: 18px;
-      transition: 0.3s;
+      font-weight: 500;
+      text-align: center;
+      transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      display: inline-block;
     }
-    a:hover {
+
+    .menu a:hover {
       background: #0056b3;
+      transform: translateY(-3px);
+      box-shadow: 0 6px 10px rgba(0,0,0,0.15);
     }
+
     .emergencia {
-      background: red;
+      background: #e74c3c;
+    }
+
+    .emergencia:hover {
+      background: #c0392b;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      backdrop-filter: blur(4px);
+      background: rgba(0,0,0,0.4);
+      justify-content: center;
+      align-items: center;
+      z-index: 10;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    }
+
+    .modal-content h2 {
+      margin-bottom: 20px;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 20px;
+      cursor: pointer;
+      color: #555;
+    }
+
+    .close-btn:hover {
+      color: #000;
+    }
+
+    @media (max-width: 500px) {
+      .menu a {
+        font-size: 16px;
+        padding: 15px;
+      }
     }
   </style>
 </head>
 <body>
-  <h2>📲 Suporte e Ajuda</h2>
+
+  <h1>📲 Suporte e Ajuda - Estacionamento Vertical</h1>
+
   <div class="menu">
-    <a href="#">🚧 Elevador parado</a>
-    <a href="#">⏳ Muito tempo de espera</a>
-    <a href="#">ℹ️ Informações</a>
-    <a href="https://wa.me/5511958276139" target="_blank">💬 WhatsApp</a>
+    <a href="#" onclick="openModal('Elevador parado')">🚧 Elevador parado</a>
+    <a href="#" onclick="openModal('Muito tempo de espera')">⏳ Muito tempo de espera</a>
+    <a href="#" onclick="openModal('Informações gerais')">ℹ️ Informações</a>
+    <a href="https://wa.me/5511958276139" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
     <a class="emergencia" href="tel:190">🚔 Emergência Policial (190)</a>
-    <a class="emergencia" href="tel:193">🚒 Emergência Bombeiro (193)</a>
-    <a href="site.html" target="_blank" rel="noopener noreferrer">🌐 Site</a>
-    <a href="#">📢 Reclamações</a>
+    <a class="emergencia" href="tel:193">🚒 Emergência Bombeiros (193)</a>
+    <a href="https://emersonvilela520-sudo.github.io/estacionamento-projeto/"
+       target="_blank" rel="noopener noreferrer">🌐 Site</a>
+    <a href="#" onclick="openModal('Reclamações')">📢 Reclamações</a>
   </div>
+
+  <!-- Modal -->
+  <div id="modal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h2 id="modal-title">Título</h2>
+      <p id="modal-text">Conteúdo da informação.</p>
+    </div>
+  </div>
+
+  <script>
+    // Mensagens específicas para cada botão
+    const mensagens = {
+      "Elevador parado": "O elevador encontra-se temporariamente fora de operação. Nossa equipe técnica já foi acionada para resolver o problema.",
+      "Muito tempo de espera": "O tempo de espera pode aumentar em horários de pico. Pedimos a compreensão e paciência de todos os usuários.",
+      "Informações gerais": "Este estacionamento vertical foi projetado para otimizar espaço e aumentar a segurança. Em caso de dúvidas, entre em contato pelo WhatsApp.",
+      "Reclamações": "Para registrar sua reclamação, utilize o botão do WhatsApp ou entre em contato com a administração."
+    };
+
+    // Função para abrir modal
+    function openModal(title) {
+      document.getElementById('modal-title').innerText = title;
+      document.getElementById('modal-text').innerText = mensagens[title] || "Informação não disponível no momento.";
+      document.getElementById('modal').style.display = 'flex';
+    }
+
+    // Fechar modal
+    function closeModal() {
+      document.getElementById('modal').style.display = 'none';
+    }
+
+    // Fecha modal ao clicar fora
+    window.onclick = function(event) {
+      const modal = document.getElementById('modal');
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+
 </body>
 </html>
-Use Control + Shift + mpara alternar o tabfoco móvel da tecla. Como alternativa, use escpara tabmover para o próximo elemento interativo na página.
-Novo arquivo em / · emersonvilela520-sudo/Estacionamento-vertical

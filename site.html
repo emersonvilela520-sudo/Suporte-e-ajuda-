@@ -130,7 +130,8 @@
     <a href="https://wa.me/5511958276139" target="_blank" rel="noopener noreferrer">💬 WhatsApp</a>
     <a class="emergencia" href="tel:190">🚔 Emergência Policial (190)</a>
     <a class="emergencia" href="tel:193">🚒 Emergência Bombeiros (193)</a>
-    <a href="https://www.seusite.com" target="_blank" rel="noopener noreferrer">🌐 Site</a>
+    <a href="https://emersonvilela520-sudo.github.io/estacionamento-projeto/"
+       target="_blank" rel="noopener noreferrer">🌐 Site</a>
     <a href="#" onclick="openModal('Reclamações')">📢 Reclamações</a>
   </div>
 
@@ -144,13 +145,22 @@
   </div>
 
   <script>
-    // Funções para modal
+    // Mensagens específicas para cada botão
+    const mensagens = {
+      "Elevador parado": "O elevador encontra-se temporariamente fora de operação. Nossa equipe técnica já foi acionada para resolver o problema.",
+      "Muito tempo de espera": "O tempo de espera pode aumentar em horários de pico. Pedimos a compreensão e paciência de todos os usuários.",
+      "Informações gerais": "Este estacionamento vertical foi projetado para otimizar espaço e aumentar a segurança. Em caso de dúvidas, entre em contato pelo WhatsApp.",
+      "Reclamações": "Para registrar sua reclamação, utilize o botão do WhatsApp ou entre em contato com a administração."
+    };
+
+    // Função para abrir modal
     function openModal(title) {
       document.getElementById('modal-title').innerText = title;
-      document.getElementById('modal-text').innerText = 'Aqui você pode adicionar detalhes sobre "' + title + '".';
+      document.getElementById('modal-text').innerText = mensagens[title] || "Informação não disponível no momento.";
       document.getElementById('modal').style.display = 'flex';
     }
 
+    // Fechar modal
     function closeModal() {
       document.getElementById('modal').style.display = 'none';
     }

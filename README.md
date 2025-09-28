@@ -62,7 +62,7 @@
     .star.selected { color: gold; }
 
     .menu { display: flex; flex-direction: column; gap: 15px; margin-top: 20px; }
-    .menu a {
+    .menu a, .menu button {
       display: block;
       background: #007bff;
       color: white;
@@ -70,8 +70,10 @@
       padding: 12px;
       border-radius: 8px;
       font-weight: 500;
+      cursor: pointer;
+      border: none;
     }
-    .menu a:hover { background: #0056b3; }
+    .menu a:hover, .menu button:hover { background: #0056b3; }
 
     .emergencia { background: #e74c3c !important; }
     .emergencia:hover { background: #c0392b !important; }
@@ -117,9 +119,9 @@
 <div class="container" id="telaSuporte" style="display:none;">
   <h1>📲 Suporte - Estacionamento Vertical</h1>
   <div class="menu">
-    <a href="#">🚧 Elevador parado</a>
-    <a href="#">⏳ Muito tempo de espera</a>
-    <a href="#">ℹ️ Informações</a>
+    <button onclick="alert('⚠️ O elevador está parado.\nNossa equipe de manutenção já foi acionada. Aguarde alguns instantes.');">🚧 Elevador parado</button>
+    <button onclick="alert('⌛ O operador foi notificado sobre o tempo de espera.\nPedimos desculpas pelo transtorno.');">⏳ Muito tempo de espera</button>
+    <button onclick="alert('ℹ️ Informações:\nEste estacionamento vertical é parte de um projeto de Engenharia Elétrica da UFF.\nSistema automatizado com sensores, Arduino e segurança monitorada.');">ℹ️ Informações</button>
     <a href="https://wa.me/5511958276139" target="_blank">💬 WhatsApp</a>
     <a class="emergencia" href="tel:190">🚔 Polícia (190)</a>
     <a class="emergencia" href="tel:193">🚒 Bombeiros (193)</a>

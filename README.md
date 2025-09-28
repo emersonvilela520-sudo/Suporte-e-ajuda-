@@ -17,6 +17,7 @@
       justify-content: center;
       align-items: center;
       min-height: 100vh;
+      overflow-x: hidden;
     }
     .container {
       background: #fff;
@@ -79,6 +80,19 @@
     table { width: 100%; border-collapse: collapse; margin-top: 10px; }
     th, td { border: 1px solid #ccc; padding: 8px; text-align: center; }
     th { background: #007bff; color: white; }
+
+    /* Confetes */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: red;
+      top: -10px;
+      animation: fall 3s linear forwards;
+    }
+    @keyframes fall {
+      to { transform: translateY(100vh) rotate(720deg); }
+    }
   </style>
 </head>
 <body>
@@ -109,6 +123,8 @@
     <a href="https://wa.me/5511958276139" target="_blank">💬 WhatsApp</a>
     <a class="emergencia" href="tel:190">🚔 Polícia (190)</a>
     <a class="emergencia" href="tel:193">🚒 Bombeiros (193)</a>
+    <a href="https://emersonvilela520-sudo.github.io/estacionamento-projeto/" target="_blank">🌐 Site</a>
+    <button id="btnAdmin">👨‍💻 Administrador</button>
   </div>
 
   <h2>Avalie o Aplicativo</h2>
@@ -159,6 +175,18 @@
       avaliacoesApp.length > 0 ? (avaliacoesApp.reduce((a,b)=>a+b,0) / avaliacoesApp.length).toFixed(1) : 0;
   }
 
+  function soltarConfetes() {
+    for (let i = 0; i < 50; i++) {
+      const confete = document.createElement("div");
+      confete.classList.add("confetti");
+      confete.style.left = Math.random() * window.innerWidth + "px";
+      confete.style.background = `hsl(${Math.random()*360}, 100%, 50%)`;
+      confete.style.animationDuration = (2 + Math.random() * 3) + "s";
+      document.body.appendChild(confete);
+      setTimeout(() => confete.remove(), 4000);
+    }
+  }
+
   // Avaliação Projeto
   document.getElementById("btnProjeto").addEventListener("click", () => {
     const nome = document.getElementById("nome").value;
@@ -169,17 +197,14 @@
     if (estrelas === 0) { alert("Escolha uma nota para o projeto."); return; }
 
     avaliacoesProjeto.push(estrelas);
-    alert(`Obrigado ${nome}, ${idade} anos!\nSua avaliação do Projeto foi ${estrelas} estrela(s).`);
-
     atualizarPainel();
+
+    // Confetes + agradecimento
+    soltarConfetes();
+    alert(`🎉 Muito obrigado ${nome}, ${idade} anos!\nVocê avaliou o Projeto com ${estrelas} estrela(s).\nSua opinião é muito importante para nós!`);
+
     document.getElementById("telaInicial").style.display = "none";
     document.getElementById("telaSuporte").style.display = "block";
-
-    // Checa senha do programador
-    const senha = prompt("Digite a senha do programador ou deixe vazio para continuar:");
-    if (senha === "admin123") {
-      document.getElementById("painelProgramador").style.display = "block";
-    }
   });
 
   // Avaliação App
@@ -187,10 +212,21 @@
     const estrelas = parseInt(document.getElementById("starsApp").getAttribute("data-selected")) || 0;
     if (estrelas === 0) { alert("Escolha uma nota para o aplicativo."); return; }
     avaliacoesApp.push(estrelas);
-    alert(`Obrigado pela sua avaliação do App: ${estrelas} estrela(s).`);
     atualizarPainel();
+    alert(`Obrigado pela avaliação do App: ${estrelas} estrela(s).`);
     document.querySelectorAll("#starsApp .star").forEach(s=>s.classList.remove("selected"));
     document.getElementById("starsApp").removeAttribute("data-selected");
+  });
+
+  // Administrador
+  document.getElementById("btnAdmin").addEventListener("click", () => {
+    const login = prompt("Digite o login:");
+    const senha = prompt("Digite a senha:");
+    if (login === "emerson.vilela" && senha === "vilela123") {
+      document.getElementById("painelProgramador").style.display = "block";
+    } else {
+      alert("Credenciais inválidas!");
+    }
   });
 </script>
 

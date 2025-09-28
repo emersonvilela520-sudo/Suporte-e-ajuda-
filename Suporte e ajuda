@@ -27,10 +27,8 @@
       width: 100%;
       text-align: center;
     }
-    h1, h2 {
-      color: #333;
-    }
-    input, button {
+    h1, h2 { color: #333; }
+    input, button, textarea {
       margin: 10px 0;
       padding: 10px;
       width: 90%;
@@ -45,6 +43,10 @@
       border: none;
     }
     button:hover { background: #0056b3; }
+    textarea {
+      resize: none;
+      height: 100px;
+    }
 
     .stars {
       display: flex;
@@ -91,9 +93,7 @@
       top: -10px;
       animation: fall 3s linear forwards;
     }
-    @keyframes fall {
-      to { transform: translateY(100vh) rotate(720deg); }
-    }
+    @keyframes fall { to { transform: translateY(100vh) rotate(720deg); } }
   </style>
 </head>
 <body>
@@ -118,14 +118,23 @@
 <div class="container" id="telaSuporte" style="display:none;">
   <h1>📲 Suporte - Estacionamento Vertical</h1>
   <div class="menu">
-    <button onclick="alert('⚠️ O elevador está parado.\nNossa equipe de manutenção já foi acionada. Aguarde alguns instantes.');">🚧 Elevador parado</button>
+    <button onclick="alert('⚠️ O elevador está parado.\nNossa equipe de manutenção já foi acionada.');">🚧 Elevador parado</button>
     <button onclick="alert('⌛ O operador foi notificado sobre o tempo de espera.\nPedimos desculpas pelo transtorno.');">⏳ Muito tempo de espera</button>
-    <button onclick="alert('ℹ️ Informações:\nEste estacionamento vertical é parte de um projeto de Engenharia Elétrica da UFF.\nSistema automatizado com sensores, Arduino e segurança monitorada.');">ℹ️ Informações</button>
+    <button onclick="alert('ℹ️ Informações:\nEste estacionamento vertical é parte de um projeto de Engenharia Elétrica da UFF.');">ℹ️ Informações</button>
+    <button onclick="alert('📢 Reclamações:\nPor favor, registre sua reclamação via WhatsApp para atendimento mais rápido.');">📢 Reclamações</button>
     <a href="https://wa.me/5511958276139" target="_blank">💬 WhatsApp</a>
     <a class="emergencia" href="tel:190">🚔 Polícia (190)</a>
     <a class="emergencia" href="tel:193">🚒 Bombeiros (193)</a>
     <a href="https://emersonvilela520-sudo.github.io/estacionamento-projeto/" target="_blank">🌐 Site</a>
+    <button onclick="document.getElementById('sugestaoBox').style.display='block';">💡 Deixe aqui sua sugestão</button>
     <button id="btnAdmin">👨‍💻 Administrador</button>
+  </div>
+
+  <!-- Sugestão -->
+  <div id="sugestaoBox" style="display:none; margin-top:20px;">
+    <h3>💡 Sugestões, elogios ou reclamações</h3>
+    <textarea id="sugestaoInput" maxlength="300" placeholder="Digite sua sugestão (máx. 300 caracteres)"></textarea>
+    <button onclick="enviarSugestao()">Enviar Sugestão</button>
   </div>
 
   <h2>Avalie o Aplicativo</h2>
@@ -140,18 +149,22 @@
 
   <!-- Painel Programador -->
   <div id="painelProgramador">
-    <h2>Painel do Programador</h2>
+    <h2>Painel do Administrador</h2>
     <table>
       <tr><th>Tipo</th><th>Quantidade</th><th>Média</th></tr>
       <tr><td>Projeto</td><td id="qtdProjeto">0</td><td id="mediaProjeto">0</td></tr>
       <tr><td>Aplicativo</td><td id="qtdApp">0</td><td id="mediaApp">0</td></tr>
     </table>
+
+    <h3>Sugestões Recebidas</h3>
+    <ul id="listaSugestoes" style="text-align:left;"></ul>
   </div>
 </div>
 
 <script>
   let avaliacoesProjeto = [];
   let avaliacoesApp = [];
+  let sugestoes = [];
 
   function configurarEstrelas(containerId) {
     const stars = document.querySelectorAll(`#${containerId} .star`);
@@ -200,9 +213,8 @@
     avaliacoesProjeto.push(estrelas);
     atualizarPainel();
 
-    // Confetes + agradecimento
     soltarConfetes();
-    alert(`🎉 Muito obrigado ${nome}, ${idade} anos!\nVocê avaliou o Projeto com ${estrelas} estrela(s).\nSua opinião é muito importante para nós!`);
+    alert(`🎉 Obrigado ${nome}, ${idade} anos!\nVocê avaliou o Projeto com ${estrelas} estrela(s).`);
 
     document.getElementById("telaInicial").style.display = "none";
     document.getElementById("telaSuporte").style.display = "block";
@@ -219,12 +231,33 @@
     document.getElementById("starsApp").removeAttribute("data-selected");
   });
 
+  // Sugestões
+  function enviarSugestao() {
+    const texto = document.getElementById("sugestaoInput").value.trim();
+    if (texto.length === 0) { alert("Digite uma sugestão."); return; }
+    sugestoes.push(texto);
+    document.getElementById("sugestaoInput").value = "";
+    document.getElementById("sugestaoBox").style.display = "none";
+    alert("✅ Obrigado pela sua sugestão!");
+    atualizarSugestoes();
+  }
+  function atualizarSugestoes() {
+    const lista = document.getElementById("listaSugestoes");
+    lista.innerHTML = "";
+    sugestoes.forEach((s,i)=>{
+      const li = document.createElement("li");
+      li.textContent = `${i+1}. ${s}`;
+      lista.appendChild(li);
+    });
+  }
+
   // Administrador
   document.getElementById("btnAdmin").addEventListener("click", () => {
     const login = prompt("Digite o login:");
     const senha = prompt("Digite a senha:");
     if (login === "emerson.vilela" && senha === "vilela123") {
       document.getElementById("painelProgramador").style.display = "block";
+      atualizarSugestoes();
     } else {
       alert("Credenciais inválidas!");
     }
